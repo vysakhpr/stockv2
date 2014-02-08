@@ -1,31 +1,33 @@
 Stockv2::Application.routes.draw do
-  get "admin/principal"
+  get "/principal",to:"admin#principal"
 
-  get "admin/office"
+  get "/office",to:"admin#office"
 
-  get "admin/login"
+  get "admin/login",to:"admin#login"
 
-  get "office/new"
+  get "office/new",to:"office#new"
 
-  get "office/show"
+  get "office/show",to:"office#show"
 
-  get "office/delete"
+  get "office/delete",to:"office#delete"
 
-  get "labstock/new"
+  get "labstock/new",to:"labstock#new"
 
-  get "labstock/show"
+  get "labstock/show",to:"labstock#show"
 
-  get "labstock/delete"
+  get "labstock/delete",to:"labstock#delete"
 
-  get "lab/index"
+  get "lab/index",to:"lab#index"
 
-  get "lab/login"
+  get "lab/login",to:"lab#login"
 
-  get "department/index"
+  get "department/index",to:"department#index"
 
-  get "department/login"
+  get "department/login",to:"department#login"
 
-  get "home/index"
+  get "home/index",to:"home#index"
+
+  root :to => 'home#index'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
