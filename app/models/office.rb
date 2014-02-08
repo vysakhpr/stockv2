@@ -1,6 +1,8 @@
 class Office < ActiveRecord::Base
   attr_accessible :date, :department, :description, :name, :price_unit, :quantity, :total_price, :voucher_no, :quantity_assigned
 
+  has_many :labstocks, dependent: :destroy
+
   validates_presence_of :date,:department,:description,:name,:price_unit,:quantity,:total_price,:voucher_no
   validates_uniqueness_of :voucher_no
   validates_numericality_of :quantity, :integer_only => true, :greater_than=> 0

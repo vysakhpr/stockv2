@@ -9,6 +9,7 @@ one:
   quantity: 1
   total_price: 1.5
   department: MyString
+  quantity_assigned: 1
 
 two:
   date: 2014-02-08
@@ -19,3 +20,4 @@ two:
   quantity: 1
   total_price: 1.5
   department: MyString
+  quantity_assigned: 1

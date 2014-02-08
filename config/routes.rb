@@ -1,4 +1,32 @@
 Stockv2::Application.routes.draw do
+  get "admin/principal"
+
+  get "admin/office"
+
+  get "admin/login"
+
+  get "office/new"
+
+  get "office/show"
+
+  get "office/delete"
+
+  get "labstock/new"
+
+  get "labstock/show"
+
+  get "labstock/delete"
+
+  get "lab/index"
+
+  get "lab/login"
+
+  get "department/index"
+
+  get "department/login"
+
+  get "home/index"
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
