@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  office_id: 1
+  quantity: 1
+  quantity_used: 1
+  status: MyString
+  lab_id: 1
+
+two:
+  office_id: 1
+  quantity: 1
+  quantity_used: 1
+  status: MyString
+  lab_id: 1

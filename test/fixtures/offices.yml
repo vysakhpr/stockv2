@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  date: 2014-02-08
+  voucher_no: MyString
+  name: MyString
+  description: MyString
+  price_unit: 1.5
+  quantity: 1
+  total_price: 1.5
+  department: MyString
+
+two:
+  date: 2014-02-08
+  voucher_no: MyString
+  name: MyString
+  description: MyString
+  price_unit: 1.5
+  quantity: 1
+  total_price: 1.5
+  department: MyString
