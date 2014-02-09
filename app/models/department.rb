@@ -4,6 +4,8 @@ class Department < ActiveRecord::Base
   has_many :labs, dependent: :destroy
   has_many :offices
 
+  has_secure_password
+
   validates_presence_of :name, :username
   validates_uniqueness_of :username
 

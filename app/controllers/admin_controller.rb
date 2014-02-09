@@ -1,8 +1,10 @@
 class AdminController < ApplicationController
 	include ApplicationHelper
-
+  include DepartmentHelper
+  helper_method :sort_column, :sort_direction
 	before_filter :signed_in_admin, :only=>[:principal,:office,:sign_out]
 	before_filter :sign_out_user, :only=>[:register,:create,:login, :sign_in]
+  
 	def register
 		@admin=Admin.new
 		
@@ -50,4 +52,6 @@ class AdminController < ApplicationController
   	flash[:notice]="You have Successfully logged out"	
   	redirect_to root_url
   end
+
+  
 end

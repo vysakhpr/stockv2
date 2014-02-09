@@ -9,7 +9,7 @@
 		<tr>
 		 <th><%= sortable "date","Date" %></th>
 		 <th><%= sortable "voucher_no.","VoucherNo" %></th>
-		 <th><%= sortable "department","Department" %></th>
+		 <th><%= sortable "department_id","Department" %></th>
 		 <th><%= sortable "name","Name" %></th>
 		 <th><%= sortable "description","Description" %></th>
 		 <th><%= sortable "price_unit","Price Unit" %></th>
@@ -22,7 +22,7 @@
 			<tr>
 				<td><%=t.date%></td>
 				<td><%=t.voucher_no%></td>
-				<td><%=t.department%></td>
+				<td><%=t.department.name%></td>
 				<td><%=t.name%></td>
 				<td><%=t.description%></td>
 				<td><%=t.price_unit%></td>

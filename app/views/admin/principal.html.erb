@@ -1,3 +1,5 @@
 <h1>Admin#principal</h1>
 <p>Find me in app/views/admin/principal.html.erb</p>
 <%= current_admin_type %>
+
+<%= link_to "Add New Department", department_register_path, :class=>"btn btn-primary",:id=>"add_department", remote:true %>

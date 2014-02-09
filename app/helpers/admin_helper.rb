@@ -12,7 +12,7 @@ module AdminHelper
 
 	def signed_in_admin
 		unless admin_signed_in?
-			flash[:notice]="Please Sign In"
+			flash[:notice]="Access Denied"
 			redirect_to root_url
 		end
 	end

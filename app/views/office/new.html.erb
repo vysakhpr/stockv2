@@ -7,7 +7,7 @@
    	    <%= f.text_field :voucher_no%></div>
 
   <div> <%= f.label :department_id %>
-  	    <%= f.select :department_id, options_for_select([["Select One", ""],@departments.each {|d| [d.name, d.id]}]) %></div>
+  	    <%= f.select(:department_id, Department.all.collect {|d| [d.name, d.id]}, {include_blank: 'Select One'}) %></div>
 
   <div> <%= f.label :name %>
   	    <%= f.text_field :name %></div>

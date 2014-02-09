@@ -1,6 +1,6 @@
 module ApplicationHelper
 	def signed_in?
-		admin_signed_in? #|| hod_signed_in? || lab_signed_in?
+		(admin_signed_in?||hod_signed_in?)# || lab_signed_in?
 	end	
 
 	def signed_in_user
@@ -20,6 +20,8 @@ module ApplicationHelper
 	def current_user
 		if admin_signed_in?
 		  Admin.find(session[:admin_id])
+		elsif hod_signed_in?
+		  Department.find(session[:department_id])
 		end	
 	end
 
@@ -27,8 +29,8 @@ module ApplicationHelper
 		if signed_in?
 			if admin_signed_in?
 				"Admin"
-			#elsif hod_signed_in
-			#	"HOD"
+			elsif hod_signed_in?
+				"HOD"
 			#else
 			#	"Lab"
 			end
@@ -50,12 +52,15 @@ module ApplicationHelper
     	link_to title, {:sort => column, :direction => direction},{:class => css_class}
   	end
 
-  	private
-    	def sort_column
-      		Office.column_names.include?(params[:sort]) ? params[:sort] : "date"
-   		end
 
-    	def sort_direction
-      		%w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
-    	end
+  	
+      def sort_column
+          Office.column_names.include?(params[:sort]) ? params[:sort] : "date"
+      end
+
+      def sort_direction
+          %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+      end
+
+  	
 end

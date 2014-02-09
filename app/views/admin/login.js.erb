@@ -1,1 +1,4 @@
-$('#login').hide().after('<%=j render("login")%>');
+$('.form').hide();
+$('.inactive').addClass('active').removeClass('alert alert-info inactive');
+$('.admin').addClass('alert alert-info inactive').removeClass('active');
+$('#login').after('<%=j render("login")%>');

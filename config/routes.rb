@@ -32,6 +32,14 @@ Stockv2::Application.routes.draw do
 
   get "lab/login",to:"lab#login"
 
+  get "department/register", to:"department#register"
+
+  post "department/create", to:"department#create"
+
+  post "department/sign_in", to:"department#sign_in"
+
+  get "department/sign_out", to:"department#sign_out"
+
   get "department/index",to:"department#index"
 
   get "department/login",to:"department#login"

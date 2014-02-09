@@ -49,8 +49,14 @@
             <ul class="nav">
             </ul>
           </div>
-          <div align="right"><% if admin_signed_in? %>
-                  <%= link_to "Logout",admin_sign_out_path%>
+          <div align="right"><% if signed_in? %>
+                  <%= link_to "Logout", if current_user_type=="Admin"
+                     admin_sign_out_path
+                   elsif current_user_type=="HOD"
+                      department_sign_out_path
+                    end %> 
+
+                  
                 <%end%>
           </div><!--/.nav-collapse -->
         </div>
