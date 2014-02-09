@@ -10,7 +10,7 @@ class DepartmentController < ApplicationController
   
 
   def index
-    @offices=current_user.offices
+    @offices=current_user.offices.order(sort_column + ' ' + sort_direction)
     @hods=[]
     @offices.each do |t|
       unless t.labstocks.exists?
@@ -57,5 +57,6 @@ class DepartmentController < ApplicationController
   	flash[:notice]="You have Successfully logged out"	
   	redirect_to root_url
   end
+
 
 end

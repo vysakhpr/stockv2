@@ -9,6 +9,7 @@ class LabController < ApplicationController
 	before_filter :sign_out_user, :only=>[:login, :sign_in]
 
   def index
+    @labstocks=current_user.labstocks
   end
 
   def login

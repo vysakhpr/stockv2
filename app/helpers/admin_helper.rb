@@ -23,5 +23,13 @@ module AdminHelper
 			redirect_to root_url
 		end
 	end
+	def sort_column
+          Office.column_names.include?(params[:sort]) ? params[:sort] : "date"
+    end
+
+    def sort_direction
+          %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    end
+
 
 end

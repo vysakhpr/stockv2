@@ -1,4 +1,5 @@
 class OfficeController < ApplicationController
+
 before_filter :signed_in_admin, :except=>:show
   def new
   	
@@ -25,4 +26,7 @@ before_filter :signed_in_admin, :except=>:show
 
   def delete
   end
+
+    
+  
 end
