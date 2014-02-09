@@ -1,2 +1,72 @@
-<h1>Office#show</h1>
-<p>Find me in app/views/office/show.html.erb</p>
+
+<div class="well" style= "width:89%" >
+	<div style="width:100%">
+<table class="table table-hover table-condensed table-responsive office_stock" >
+	<thead>
+		STOCK
+		<tr>
+		 <th>Date </th>
+		 <th>Voucher No </th>
+		 <th>Department</th>
+		 <th>Name</th>
+		 <th>Description</th>
+		 <th>Price Unit</th>
+		 <th>Quantity</th>
+		 <th>Total Price</th>
+		 <th>Remaining</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td><%=@office.date%></td>
+			<td><%=@office.voucher_no%></td>
+			<td><%=@office.department.name%></td>
+			<td><%=@office.name%></td>
+			<td><%=@office.description%></td>
+			<td><%=@office.price_unit%></td>
+			<td><%=@office.quantity%></td>
+			<td><%=@office.total_price%></td>
+			<td><%=@office.quantity-@office.quantity_assigned%></td>
+			<td><%= link_to "Assign","/lab/new/#{@office.id}", :method=> :pos, :class=>"btn btn-info btnmini" %></td> 
+		</tr>
+	</tbody>
+</table>
+</div>
+</div>
+
+<div class= "well" style="width:40%">
+<table class="table">
+	<thead>
+		<th>Labname</th>
+		<th>Quantity</th>
+		<th>Quantity Used</th>
+		<th>Status</th>
+	</thead>
+	<tbody>
+		<% @labstocks.each do|f| %>
+			<%if f.status=="P"%>
+			  <tr class="alert alert-success">
+			<%elsif f.status=="R"%>
+			  <tr class="alert alert-info">
+			<%elsif f.status=="I"%>
+			  <tr class="alert alert-warning">
+			<%else%>
+				  <tr class="alert alert-danger">
+			<%end%>
+				<td><%=f.labstock.name%></td>
+				<td><%=f.quantity%></td>
+				<td><%=f.quantity_used%></td>
+				<%if f.status=="P"%>
+			    <td>Perfect</td>
+				<%elsif f.status=="R"%>
+					<td>Needs Repair</td>
+				<%elsif f.status=="I"%>
+					<td>Irrepairable</td>
+				<%else%>
+				  <td>Write Off</td>
+				<%end%>	  	
+			</tr>
+		<%end%>
+	</tbody>
+</table>
+</div>

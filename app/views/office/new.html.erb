@@ -6,8 +6,8 @@
   <div> <%= f.label :voucher_no %>
    	    <%= f.text_field :voucher_no%></div>
 
-  <div> <%= f.label :department %>
-  	    <%= f.select :department, options_for_select([["Select One", ""],@departments.each {|d| [d.name, d.id]}]) %></div>
+  <div> <%= f.label :department_id %>
+  	    <%= f.select :department_id, options_for_select([["Select One", ""],@departments.each {|d| [d.name, d.id]}]) %></div>
 
   <div> <%= f.label :name %>
   	    <%= f.text_field :name %></div>

@@ -8,7 +8,7 @@ before_filter :signed_in_admin, :except=>:show
 
   def show
      @office=Office.find(params[:id])
-     @labs=@office.labs
+     @labstocks=@office.labstocks
   end
 
   def create
