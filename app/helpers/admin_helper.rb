@@ -10,4 +10,18 @@ module AdminHelper
 		end
 	end
 
+	def signed_in_admin
+		unless admin_signed_in?
+			flash[:notice]="Please Sign In"
+			redirect_to root_url
+		end
+	end
+
+	def sign_out_admin
+		if admin_signed_in?
+			flash[:notice]="Please Logout to Continue"
+			redirect_to root_url
+		end
+	end
+
 end

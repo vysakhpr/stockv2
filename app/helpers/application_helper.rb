@@ -34,4 +34,28 @@ module ApplicationHelper
 			end
 		end
 	end
+
+	def sortable(column, title = nil)
+    	title ||= column.titleize
+    	if column == sort_column
+        	 if sort_direction == "asc" 
+           	 css_class= "icon-chevron-up" 
+         	else
+        	css_class= "icon-chevron-down"
+         	end
+    	else
+    		css_class=nil
+    	end    
+    	direction = (column == sort_column && sort_direction == "asc") ? "desc" : "asc"
+    	link_to title, {:sort => column, :direction => direction},{:class => css_class}
+  	end
+
+  	private
+    	def sort_column
+      		Office.column_names.include?(params[:sort]) ? params[:sort] : "date"
+   		end
+
+    	def sort_direction
+      		%w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    	end
 end

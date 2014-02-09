@@ -8,7 +8,7 @@ class CreateOffices < ActiveRecord::Migration
       t.float :price_unit
       t.integer :quantity
       t.float :total_price
-      t.string :department
+      t.integer :department_id
       t.integer :quantity_assigned, :default => 0
 
       t.timestamps

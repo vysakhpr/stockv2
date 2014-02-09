@@ -1,7 +1,7 @@
 class AdminController < ApplicationController
 	include ApplicationHelper
 
-	before_filter :signed_in_user, :only=>[:principal,:office,:sign_out]
+	before_filter :signed_in_admin, :only=>[:principal,:office,:sign_out]
 	before_filter :sign_out_user, :only=>[:register,:create,:login, :sign_in]
 	def register
 		@admin=Admin.new
@@ -23,6 +23,7 @@ class AdminController < ApplicationController
   end
 
   def office
+  	@offices = Office.order(sort_column + ' ' + sort_direction)
   end
 
   def login

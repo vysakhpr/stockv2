@@ -16,9 +16,11 @@ Stockv2::Application.routes.draw do
 
   get "office/new",to:"office#new"
 
-  get "office/show",to:"office#show"
+  post "office/show/:id",to:"office#show"
 
-  get "office/delete",to:"office#delete"
+  delete "office/delete",to:"office#delete"
+
+  post "office/create", :to => 'office#create'
 
   get "labstock/new",to:"labstock#new"
 

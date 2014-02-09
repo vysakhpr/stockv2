@@ -3,6 +3,7 @@ class HomeController < ApplicationController
   include AdminHelper
   def index
   	if signed_in?
+  		flash.keep
   		if current_user_type=="Admin"
   			redirect_to "/#{current_admin_type.downcase}"
 

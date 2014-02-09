@@ -1,3 +1,5 @@
+<div class="well" align="center" style="margin-left:30%;margin-right:30%;margin-top:5%;margin-bottom:5%">
+	<h1>Admin Registration</h1>
 <%= form_for @admin,:url=>admin_create_path, method: :post do |f|%>
 	<div><%= f.label :username %>
 		<%= f.text_field :username %></div>
@@ -13,3 +15,4 @@
 
   <div><%= f.submit "Sign Up"%></div>
  <%end%>
+</div>
