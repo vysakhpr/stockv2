@@ -3,10 +3,10 @@
 		<%= f.text_field :username %></div>
 
 	<div><%=f.label :password %>
-		<%= f.text_field :password %></div>
+		<%= f.password_field :password %></div>
 
 	<div><%=f.label :password_confirmation %>
-		<%= f.text_field :password_confirmation %></div>
+		<%= f.password_field :password_confirmation %></div>
 
 	<div><%= f.label :role %><br />
   	<%= f.select :role, options_for_select([["Select One", ""], "Principal", "Office"]) %></div>
