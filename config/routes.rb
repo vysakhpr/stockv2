@@ -24,6 +24,9 @@ Stockv2::Application.routes.draw do
   get "lab/sign_out", to: "lab#sign_out"
   get "lab/index",to:"lab#index"
   get "lab/login",to:"lab#login"
+  get "lab/perfect",to: "lab#perfect"
+  get "lab/repair",to: "lab#repair"
+  get "lab/irrepair",to: "lab#irrepair"
 
   get "department/register", to:"department#register"
   post "department/create", to:"department#create"

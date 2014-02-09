@@ -47,6 +47,7 @@
           <a class="brand" href="#">Stockv2</a>
           <div class="container-fluid nav-collapse">
             <ul class="nav">
+              <li><%= link_to "Home", root_url  %></li>
             </ul>
           </div>
           <div align="right"><% if signed_in? %>
@@ -66,20 +67,11 @@
     </div>
     <div class="container-fluid">
       <div class="row-fluid">
-        <div><% if signed_in? %>
-        <div class="span3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Home", root_url  %></li>
-            </ul>
-          </div><!--/.well -->
-        </div><!--/span-->
-        <div class="span9">
-        <%else%>
+        <div>
+       <!--/span-->
 
-          <div>
-        <%end%>
+
+        <div>
           <%= bootstrap_flash %>
           <%= yield %>
         </div>

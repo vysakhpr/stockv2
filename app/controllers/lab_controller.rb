@@ -9,8 +9,11 @@ class LabController < ApplicationController
 	before_filter :sign_out_user, :only=>[:login, :sign_in]
 
   def index
-    @labstocks=current_user.labstocks
+    @labstocks_perfects=current_user.labstocks.find(:all,:conditions=>{status:"P"})
+    @labstocks_repairs=current_user.labstocks.find(:all,:conditions=>{status:"R"})
+    @labstocks_irrepairs=current_user.labstocks.find(:all,:conditions=>{status:"I"})
   end
+
 
   def login
   end
