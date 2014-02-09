@@ -28,6 +28,14 @@ Stockv2::Application.routes.draw do
 
   get "labstock/delete",to:"labstock#delete"
 
+  get "lab/register", to:"lab#register"
+
+  post "lab/create", to: "lab#create"
+
+  post "lab/sign_in", to: "lab#sign_in"
+
+  get "lab/sign_out", to: "lab#sign_out"
+
   get "lab/index",to:"lab#index"
 
   get "lab/login",to:"lab#login"

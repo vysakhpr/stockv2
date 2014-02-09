@@ -2,6 +2,7 @@ class DepartmentController < ApplicationController
 	include ApplicationHelper
 	include DepartmentHelper
   include AdminHelper
+  include LabHelper
 
   before_filter :signed_in_hod, :only=>[:index,:sign_out]
   before_filter :signed_in_admin, :only=>[:create,:register]

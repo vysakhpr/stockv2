@@ -1,2 +1,8 @@
-<h1>Lab#login</h1>
-<p>Find me in app/views/lab/login.html.erb</p>
+<%= form_tag(lab_sign_in_path, method: :post)%>
+	<div><%=label_tag :username %>
+		<%= text_field_tag :username %></div>
+
+	<div><%=label_tag :password %>
+		<%=password_field_tag :password %></div>
+
+  <div><%=submit_tag "Log in", :class=>"btn btn-primary"%></div>

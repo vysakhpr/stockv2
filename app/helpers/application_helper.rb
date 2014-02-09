@@ -1,6 +1,6 @@
 module ApplicationHelper
 	def signed_in?
-		(admin_signed_in?||hod_signed_in?)# || lab_signed_in?
+		(admin_signed_in?||hod_signed_in?||lab_signed_in?)
 	end	
 
 	def signed_in_user
@@ -22,6 +22,8 @@ module ApplicationHelper
 		  Admin.find(session[:admin_id])
 		elsif hod_signed_in?
 		  Department.find(session[:department_id])
+		elsif lab_signed_in?
+		  Lab.find(session[:lab_id])
 		end	
 	end
 
@@ -31,8 +33,8 @@ module ApplicationHelper
 				"Admin"
 			elsif hod_signed_in?
 				"HOD"
-			#else
-			#	"Lab"
+			elsif lab_signed_in?
+				"Lab"
 			end
 		end
 	end
