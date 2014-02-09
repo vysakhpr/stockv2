@@ -2,8 +2,8 @@
   <h1>College Of Engineering Chengannur</h1>
   <p>Stock Management App. Login To Continue.. Who Are You??</p>
   <ul class="nav nav-pills nav-stacked">
-  	<li class="active"><%= link_to "Principal Or Office",admin_login_path %> </li>
-  	<li class ="active"><%= link_to "Head Of The Departments",department_login_path %> </li>
-  	<li class="active"><%= link_to "Lab In Charges",lab_login_path %> </li>
+  	<li class="active"><%= link_to "Principal Or Office",admin_login_path,id: "login", remote:true%> </li>
+  	<li class ="active "><%= link_to "Head Of The Departments",department_login_path, id: "hod_login" %> </li>
+  	<li class="active"><%= link_to "Lab In Charges",lab_login_path,id: "lab_login" %> </li>
   </ul>
 </div>

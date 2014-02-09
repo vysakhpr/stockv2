@@ -1,4 +1,13 @@
 Stockv2::Application.routes.draw do
+
+  get "admin/sign_out", to:"admin#sign_out"
+
+  post "admin/sign_in", to:"admin#sign_in"
+  
+  post "admin/create", to:"admin#create"
+
+  get "/admin/register", to: "admin#register"
+
   get "/principal",to:"admin#principal"
 
   get "/office",to:"admin#office"

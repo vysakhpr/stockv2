@@ -1,0 +1,15 @@
+<%= form_for @admin,:url=>admin_create_path, method: :post do |f|%>
+	<div><%= f.label :username %>
+		<%= f.text_field :username %></div>
+
+	<div><%=f.label :password %>
+		<%= f.text_field :password %></div>
+
+	<div><%=f.label :password_confirmation %>
+		<%= f.text_field :password_confirmation %></div>
+
+	<div><%= f.label :role %><br />
+  	<%= f.select :role, options_for_select([["Select One", ""], "Principal", "Office"]) %></div>
+
+  <div><%= f.submit "Sign Up"%></div>
+ <%end%>
