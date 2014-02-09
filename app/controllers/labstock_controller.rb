@@ -9,7 +9,7 @@ class LabstockController < ApplicationController
   	unless @labstock.quantity.nil?
   		if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
   			flash[:error]="Quantity over full size"
-  			redirect_to :back, method: :post
+  			redirect_to root_url
   		elsif @labstock.save
   			flash[:info]="Successively Assigned"
         diff=@labstock.office.quantity_assigned+@labstock.quantity
