@@ -7,7 +7,19 @@ class DepartmentController < ApplicationController
   before_filter :signed_in_hod, :only=>[:index,:sign_out]
   before_filter :signed_in_admin, :only=>[:create,:register]
 	before_filter :sign_out_user, :only=>[:login, :sign_in]
+  
+
   def index
+    @offices=current_user.offices
+    @hods=[]
+    @offices.each do |t|
+      unless t.labstocks.exists?
+        @hods<<t
+      end
+      if (t.labstocks.exists?)&&(t.quantity_assigned<t.quantity)
+        @hods<<t
+      end  
+    end  
   end
 
   def login

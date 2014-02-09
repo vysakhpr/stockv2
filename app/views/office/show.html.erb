@@ -27,7 +27,7 @@
 			<td><%=@office.quantity%></td>
 			<td><%=@office.total_price%></td>
 			<td><%=@office.quantity-@office.quantity_assigned%></td>
-			<td><%= link_to "Assign","/lab/new/#{@office.id}", :method=> :pos, :class=>"btn btn-info btnmini" %></td> 
+			<td><%= link_to "Assign","/labstock/new/#{@office.id}", :method=> :pos, :class=>"btn btn-info btnmini" %></td> 
 		</tr>
 	</tbody>
 </table>
@@ -53,7 +53,7 @@
 			<%else%>
 				  <tr class="alert alert-danger">
 			<%end%>
-				<td><%=f.labstock.name%></td>
+				<td><%=f.lab.name%></td>
 				<td><%=f.quantity%></td>
 				<td><%=f.quantity_used%></td>
 				<%if f.status=="P"%>

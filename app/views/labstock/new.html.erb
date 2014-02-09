@@ -1,2 +1,18 @@
-<h1>Labstock#new</h1>
-<p>Find me in app/views/labstock/new.html.erb</p>
+<%= form_for @labstock, url:labstock_create_path do |f| %>
+
+  <div> <%= f.hidden_field :office_id, :value=>@office.id %>
+  
+  <div> <%= f.label :quantity %>
+  	    <%= f.number_field :quantity %></div>
+
+  <div> <%= f.label :quantity_used %>
+  	    <%= f.number_field :quantity_used %></div>
+
+   <div><%= f.collection_select :lab_id,  current_user.labs.all, :id, :name, :prompt=>true %>
+
+
+
+  <div><%= f.submit "Assign", :class=>"btn btn-primary" %></div>
+
+<%end%>
+

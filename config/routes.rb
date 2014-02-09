@@ -1,55 +1,35 @@
 Stockv2::Application.routes.draw do
 
   get "admin/sign_out", to:"admin#sign_out"
-
   post "admin/sign_in", to:"admin#sign_in"
-  
   post "admin/create", to:"admin#create"
-
   get "/admin/register", to: "admin#register"
-
   get "/principal",to:"admin#principal"
-
   get "/office",to:"admin#office"
 
   get "admin/login",to:"admin#login"
-
   get "office/new",to:"office#new"
-
   post "office/show/:id",to:"office#show"
-
   delete "office/delete",to:"office#delete"
-
   post "office/create", :to => 'office#create'
 
-  get "labstock/new",to:"labstock#new"
-
+  post "labstock/new/:id",to:"labstock#new"
   get "labstock/show",to:"labstock#show"
-
   get "labstock/delete",to:"labstock#delete"
+  post "labstock/create",to:"labstock#create"
 
   get "lab/register", to:"lab#register"
-
   post "lab/create", to: "lab#create"
-
   post "lab/sign_in", to: "lab#sign_in"
-
   get "lab/sign_out", to: "lab#sign_out"
-
   get "lab/index",to:"lab#index"
-
   get "lab/login",to:"lab#login"
 
   get "department/register", to:"department#register"
-
   post "department/create", to:"department#create"
-
   post "department/sign_in", to:"department#sign_in"
-
   get "department/sign_out", to:"department#sign_out"
-
   get "department/index",to:"department#index"
-
   get "department/login",to:"department#login"
 
   get "home/index",to:"home#index"
