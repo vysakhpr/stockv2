@@ -19,19 +19,10 @@
   					<%=text_field_tag :quantity_used,f.quantity_used,style: "width:50px" %>
   					<%= submit_tag "Save",:class=>"btn btn-primary btn-small"%>
   					<%end%></td>
-				<%if f.status=="P"%>
-			    <td>Perfect</td>
-				<%elsif f.status=="R"%>
-					<td>Needs Repair</td>
-				<%elsif f.status=="I"%>
-					<td>Irrepairable</td>
-				<%else%>
-				  <td>Write Off</td>
-				<%end%>	
 				<td>
 					<%= form_tag("/lab/update/#{f.id}", method: :post) do%>
 				
-  					<%= select_tag :status, options_for_select([["Select to change", ""], ["Perfectly working","P"], ["Needs Repair","R"], ["Irrepairable","I"],["WriteOff","W"]]),style: "width:150px" %>
+  					<%= select_tag :status, options_for_select([["Repair", ""], ["Perfectly working","P"], ["Irrepairable","I"],["WriteOff","W"]]),style: "width:150px" %>
   					<%= submit_tag "Change",:class=>"btn btn-primary btn-small", prompt: true%>
   					<%end%>  
   				</td>  
