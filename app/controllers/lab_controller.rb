@@ -29,8 +29,21 @@ class LabController < ApplicationController
        redirect_to :back
       end
     end
+  end
 
-
+  def update_used
+  	@labstock=Labstock.find(params[:id])
+  	if @labstock.quantity<params[:quantity_used].to_i
+  		flash[:error]="Quantity over full size"
+  	else
+    	@labstock.quantity_used=params[:quantity_used].to_i
+  		if @labstock.save
+  			flash[:success]="Saved"
+ 			else
+ 				flash[:error]=@labstock.errors.full_messages.to_sentence
+ 			end
+  	end
+  	redirect_to :back
   end
 
 
