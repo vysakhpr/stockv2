@@ -14,6 +14,25 @@ class LabController < ApplicationController
     @labstocks_irrepairs=current_user.labstocks.find(:all,:conditions=>{status:"I"})
   end
 
+  def update
+    @labstock=Labstock.find(params[:id])
+    if params[:status].blank?
+      flash[:notice]="Select a value for status"
+      redirect_to :back
+    else
+
+      if @labstock.update_attribute(:status,params[:status])
+        flash[:notice]="Saved"
+        redirect_to :back
+      else
+        flash[:notice]=@labstock.errors.full_messages.to_sentence
+       redirect_to :back
+      end
+    end
+
+
+  end
+
 
   def login
   end

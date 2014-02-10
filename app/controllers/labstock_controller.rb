@@ -5,22 +5,45 @@ class LabstockController < ApplicationController
   end
 
   def create
-  	@labstock=Labstock.new(params[:labstock])
-  	unless @labstock.quantity.nil?
-  		if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
-  			flash[:error]="Quantity over full size"
-  			redirect_to root_url
-  		elsif @labstock.save
-  			flash[:info]="Successively Assigned"
-        diff=@labstock.office.quantity_assigned+@labstock.quantity
-        @labstock.office.update_attribute(:quantity_assigned,diff)
-  			redirect_to root_url
-  		end	
-  	else
-  		flash[:error] = @labstock.errors.full_messages.to_sentence
-  		redirect_to :back
-   	end
-  	
+    @labstock_exist=Labstock.find_by_office_id(params[:labstock][:office_id])
+    unless @labstock_exist.nil?
+      unless @labstock_exist.quantity.nil?
+        if (@labstock_exist.office.quantity-@labstock_exist.office.quantity_assigned) < params[:labstock][:quantity].to_i
+          flash[:error]="Quantity over full size"
+          redirect_to root_url
+        else 
+          @labstock_exist.quantity=@labstock_exist.quantity+params[:labstock][:quantity].to_i
+          if @labstock_exist.save
+            flash[:info]="Successively Assigned"
+            diff=@labstock_exist.office.quantity_assigned+@labstock_exist.quantity
+            @labstock_exist.office.update_attribute(:quantity_assigned,diff)
+            redirect_to root_url
+          else
+            flash[:error]=@labstock_exist.errors.full_messages.to_sentence
+            redirect_to :back
+          end
+        end           
+      else
+        flash[:error] = "Quantity Should have some value"
+        redirect_to :back
+      end
+    else
+  	 @labstock=Labstock.new(params[:labstock])
+  	 unless @labstock.quantity.nil?
+  	 	  if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
+  			  flash[:error]="Quantity over full size"
+  			  redirect_to root_url
+  		  elsif @labstock.save
+  			  flash[:info]="Successively Assigned"
+          diff=@labstock.office.quantity_assigned+@labstock.quantity
+          @labstock.office.update_attribute(:quantity_assigned,diff)
+  			  redirect_to root_url
+  		  end	
+  	  else
+  		  flash[:error] = @labstock.errors.full_messages.to_sentence
+  		  redirect_to :back
+   	  end
+    end
   end
 
   def show
