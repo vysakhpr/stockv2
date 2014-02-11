@@ -51,6 +51,10 @@ class LabstockController < ApplicationController
      @labstocks=@office.labstocks
   end
 
+  def transfer
+    
+  end
+
   def delete
   end
 end

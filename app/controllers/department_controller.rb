@@ -10,6 +10,7 @@ class DepartmentController < ApplicationController
   
 
   def index
+    @labs=current_user.labs
     @offices=current_user.offices.order(sort_column + ' ' + sort_direction)
     @hods=[]
     @offices.each do |t|

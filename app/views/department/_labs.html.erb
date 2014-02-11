@@ -1,0 +1,16 @@
+<div>
+<%@labs.each do |l| %>
+	<table class="table table-striped table-condensed">
+		<thead>
+        	<th>Name</th>
+		</thead>
+		<tbody>
+			<td><%=l.name%></td>
+		</tbody>
+	</table>
+<%end%>
+</div>
+
+<div>
+	<%= link_to "Add Lab", lab_register_path, :class=>"btn btn-primary", :id=>"add_lab", remote:true %>
+</div>

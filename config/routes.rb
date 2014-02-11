@@ -17,6 +17,7 @@ Stockv2::Application.routes.draw do
   get "labstock/show",to:"labstock#show"
   get "labstock/delete",to:"labstock#delete"
   post "labstock/create",to:"labstock#create"
+  post "labstock/transfer",to:"labstock#transfer"
 
   get "lab/register", to:"lab#register"
   post "lab/create", to: "lab#create"
@@ -26,6 +27,7 @@ Stockv2::Application.routes.draw do
   get "lab/login",to:"lab#login"
   post "lab/update/:id", to:"lab#update"
   post "lab/update_used/:id", to:"lab#update_used"
+
 
   get "department/register", to:"department#register"
   post "department/create", to:"department#create"
