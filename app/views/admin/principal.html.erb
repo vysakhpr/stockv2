@@ -1,5 +1,15 @@
-<h1>Admin#principal</h1>
-<p>Find me in app/views/admin/principal.html.erb</p>
-<%= current_admin_type %>
+<%= form_tag "/principal", :method => 'get' do %>
+    <%= text_field_tag :search %>
+    <%= submit_tag " Search" %>
+<% end %>
+<% unless @search.nil? %>
+	<% @search.results.each do |t|%>
+		<%= t.name %>
+		<%= t.description %>
+		<% t.labstocks.each do |i| %>
+			 <%= i.lab.name %>
+		<%end%>
+	<%end%>
+<%end%>
 
 <%= link_to "Add New Department", department_register_path, :class=>"btn btn-primary",:id=>"add_department", remote:true %>

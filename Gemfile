@@ -9,6 +9,9 @@ gem 'sqlite3'
 gem 'twitter-bootstrap-rails'
 gem 'less-rails'
 gem 'rails-erd'
+gem 'sunspot_rails'
+gem 'sunspot_solr'
+gem 'progress_bar'
 
 
 # Gems used only for assets and not required

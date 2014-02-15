@@ -23,6 +23,14 @@ class AdminController < ApplicationController
 	end
 
   def principal
+    unless params[:search].blank?
+      @search=Office.search do
+        fulltext params[:search] do
+          query_phrase_slop 1
+          minimum_match 1
+        end
+      end
+    end
   end
 
   def office
