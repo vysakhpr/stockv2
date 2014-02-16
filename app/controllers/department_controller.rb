@@ -19,8 +19,12 @@ class DepartmentController < ApplicationController
       end
       if (t.labstocks.exists?)&&(t.quantity_assigned<t.quantity)
         @hods<<t
-      end  
+      end
+
+      @donor=current_user.labs
+
     end  
+
   end
 
   def login
@@ -59,5 +63,8 @@ class DepartmentController < ApplicationController
   	redirect_to root_url
   end
 
+  def donor
+    
+  end
 
 end

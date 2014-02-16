@@ -1,0 +1,17 @@
+<div style="width:50%">
+<table class ="table table-condensed">
+	<thead>
+     <th>Name</th>
+     <th>Match</th>
+	</thead>
+	<tbody>
+		<% @search.results.each do |t|%>
+			<tr>
+				<td><%= link_to t.name,"/office/show/#{t.id}", :method=> :post  %></td>
+				<td><%= t.description %></td>
+			</tr>
+		<%end%>
+	</tbody>
+</table>
+<%=will_paginate @search.results %>
+</div>

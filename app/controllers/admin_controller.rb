@@ -29,6 +29,7 @@ class AdminController < ApplicationController
           query_phrase_slop 1
           minimum_match 1
         end
+        paginate :page=>params[:page],:per_page=>30
       end
     end
   end

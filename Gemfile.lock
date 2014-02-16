@@ -137,6 +137,7 @@ GEM
       execjs
       railties (>= 3.1)
     tzinfo (0.3.38)
+    will_paginate (3.0.5)
 
 PLATFORMS
   ruby
@@ -155,3 +156,4 @@ DEPENDENCIES
   sunspot_solr
   therubyracer
   twitter-bootstrap-rails
+  will_paginate

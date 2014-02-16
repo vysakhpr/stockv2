@@ -12,6 +12,7 @@ gem 'rails-erd'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'progress_bar'
+gem 'will_paginate'
 
 
 # Gems used only for assets and not required

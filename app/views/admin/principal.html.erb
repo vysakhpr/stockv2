@@ -3,13 +3,7 @@
     <%= submit_tag " Search" %>
 <% end %>
 <% unless @search.nil? %>
-	<% @search.results.each do |t|%>
-		<%= t.name %>
-		<%= t.description %>
-		<% t.labstocks.each do |i| %>
-			 <%= i.lab.name %>
-		<%end%>
-	<%end%>
+	<%= render "search" %>
 <%end%>
 
 <%= link_to "Add New Department", department_register_path, :class=>"btn btn-primary",:id=>"add_department", remote:true %>

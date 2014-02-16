@@ -27,7 +27,7 @@
 			<td><%=@office.quantity%></td>
 			<td><%=@office.total_price%></td>
 			<td><%=@office.quantity-@office.quantity_assigned%></td>
-			<td><%= link_to "Assign","/labstock/new/#{@office.id}", :method=> :pos, :class=>"btn btn-info btnmini" %></td> 
+			<td><%= link_to "Assign","/labstock/new/#{@office.id}", :method=> :pos, :class=>"btn btn-info btnmini" if current_user_type == "HOD" %></td> 
 		</tr>
 	</tbody>
 </table>
