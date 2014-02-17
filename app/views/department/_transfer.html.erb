@@ -1,7 +1,0 @@
-<%= form_tag(labstock_transfer_path, method: :post) do %>
-	<div >
-	<%= label_tag :select_the_lab %>
- 	<%= select_tag  :donor_id, options_from_collection_for_select(@donor,"id","name"), {include_blank: 'Select One'} %>
- 	<%=link_to "OK","/department/donor",:class=>"btn btn-info btn-mini ",:id=>"donor_lab", remote: true%>
- 	</div>
-<%end%>

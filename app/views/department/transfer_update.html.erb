@@ -1,0 +1,4 @@
+<div><%= @donor_stock.lab.name %>
+	<%=@donor_stock.quantity%></div>
+<div><%=@receiver_lab.name %>
+	<%= @receiver_stock.quantity unless @receiver_stock.nil? %></div>

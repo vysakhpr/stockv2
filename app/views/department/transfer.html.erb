@@ -1,0 +1,8 @@
+<h1>Transfer Stocks</h1>
+<%=form_tag("/department/transfer_update",method: :post) do %>
+	<%= hidden_field_tag :donor_stock_id, @donor.id %>
+	<%= number_field_tag :quantity %>
+	<%= collection_select(:receiver,:id, current_user.labs,:id,:name) %>
+	<%= submit_tag "Transfer" %>
+
+<%end%>

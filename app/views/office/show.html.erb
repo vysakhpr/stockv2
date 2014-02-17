@@ -65,6 +65,12 @@
 				<%else%>
 				  <td>Write Off</td>
 				<%end%>	  	
+				<td><% if current_user_type=="HOD"&& @office.department.name==current_user.name %>
+				  		<%= link_to "Transfer","/department/transfer/#{f.id}",:class=>"btn btn-primary btn-mini"%>
+
+
+				  		<% end %>
+				 </td>
 			</tr>
 		<%end%>
 	</tbody>

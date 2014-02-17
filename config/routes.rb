@@ -35,7 +35,9 @@ Stockv2::Application.routes.draw do
   get "department/sign_out", to:"department#sign_out"
   get "department/index",to:"department#index"
   get "department/login",to:"department#login"
-  get "department/donor",to:"department#donor"
+  get "department/transfer/:id", to: "department#transfer"
+  post "department/transfer_update", to: "department#transfer_update"
+  
 
   get "home/index",to:"home#index"
 
