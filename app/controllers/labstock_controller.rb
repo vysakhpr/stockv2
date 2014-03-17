@@ -15,17 +15,17 @@ class LabstockController < ApplicationController
           @labstock_exist.quantity=@labstock_exist.quantity+params[:labstock][:quantity].to_i
           if @labstock_exist.save
             flash[:info]="Successively Assigned"
-            diff=@labstock_exist.office.quantity_assigned+@labstock_exist.quantity
+            diff=@labstock_exist.office.quantity_assigned+params[:labstock][:quantity].to_i
             @labstock_exist.office.update_attribute(:quantity_assigned,diff)
             redirect_to root_url
           else
             flash[:error]=@labstock_exist.errors.full_messages.to_sentence
-            redirect_to :back
+            redirect_to root_url
           end
         end           
       else
         flash[:error] = "Quantity Should have some value"
-        redirect_to :back
+        redirect_to root_url
       end
     else
   	 @labstock=Labstock.new(params[:labstock])
@@ -38,10 +38,13 @@ class LabstockController < ApplicationController
           diff=@labstock.office.quantity_assigned+@labstock.quantity
           @labstock.office.update_attribute(:quantity_assigned,diff)
   			  redirect_to root_url
+        else
+          flash[:error] = @labstock.errors.full_messages.to_sentence
+          redirect_to root_url
   		  end	
   	  else
-  		  flash[:error] = @labstock.errors.full_messages.to_sentence
-  		  redirect_to :back
+  		  flash[:error] = "Quantity is Nil"
+  		  redirect_to root_url
    	  end
     end
   end
