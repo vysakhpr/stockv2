@@ -3,6 +3,7 @@ class Department < ActiveRecord::Base
 
   has_many :labs, dependent: :destroy
   has_many :offices
+  has_many :messages, dependent: :destroy
 
   has_secure_password
 

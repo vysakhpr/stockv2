@@ -37,6 +37,9 @@ Stockv2::Application.routes.draw do
   get "department/login",to:"department#login"
   get "department/transfer/:id", to: "department#transfer"
   post "department/transfer_update", to: "department#transfer_update"
+
+  post "message/writeoff", to:"message#writeoff"
+  post "message/need_stock", to:"message#need_stock"
   
 
   get "home/index",to:"home#index"

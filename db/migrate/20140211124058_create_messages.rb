@@ -4,7 +4,7 @@ class CreateMessages < ActiveRecord::Migration
       t.integer :lab_id
       t.string :message_type
       t.string :name
-      t.integer :quantity
+      t.integer :quantity,:default=>0
       t.string :sender
       t.integer :department_id
 

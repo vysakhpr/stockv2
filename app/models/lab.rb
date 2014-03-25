@@ -5,6 +5,7 @@ class Lab < ActiveRecord::Base
 
   has_many :labstocks, :dependent=>:destroy
   belongs_to :department
+  has_many :messages, :dependent=>:destroy
 
   validates_presence_of :name,:username
   validates_uniqueness_of :username

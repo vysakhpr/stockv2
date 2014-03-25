@@ -25,7 +25,7 @@ class LabController < ApplicationController
         flash[:notice]="Saved"
         redirect_to :back
       else
-        flash[:notice]=@labstock.errors.full_messages.to_sentence
+        flash[:error]=@labstock.errors.full_messages.to_sentence
        redirect_to :back
       end
     end

@@ -3,9 +3,18 @@
           <div class="well sidebar-nav">
             <ul class="nav nav-list">
               <li class="nav-header">Sidebar</li>
-              <li><%= link_to "Request Stock", "#"  %></li>
-              <li><%= link_to "Request Write Off", "#"  %></li>
-              <li><%= link_to "Link3", "#"  %></li>
+              <li><p class="alert alert-info">Request Items</p></li>
+              <li>
+                <div>
+                <%= form_tag(message_need_stock_path,method: :post) do %>
+                  <%= text_area_tag :name,nil, :placeholder=>"Description"%>
+                  <p>Quantity</p>
+                  <%= number_field_tag :quantity%>
+                  <%= submit_tag "Request", :class=>"btn btn-primary" %>
+                <% end %>
+                </div>
+              </li>
+              <li><%= link_to "Request Write Off",message_writeoff_path,method: :post ,:class=>"btn btn-danger" %></li>
             </ul>
           </div>
  </div>
