@@ -20,11 +20,20 @@ class DepartmentController < ApplicationController
       if (t.labstocks.exists?)&&(t.quantity_assigned<t.quantity)
         @hods<<t
       end
-
       @donor=current_user.labs
-
-    end  
-
+    end 
+    @department_messages=current_user.messages.all
+    @writeoff_messages=[]
+    @request_messages=[]
+    @department_messages.each do |t|
+      unless t.sender==current_user_type
+        if t.message_type=="writeoff"
+          @writeoff_messages<<t
+        elsif t.message_type=="request"
+          @request_messages<<t
+        end
+      end 
+    end
   end
 
   def login

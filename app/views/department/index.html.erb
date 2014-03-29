@@ -8,7 +8,7 @@
       <li class="active"><a href="#stockassign" data-toggle="tab">Stock To be Assigned</a></li>
       <li><a href="#all_labs" data-toggle="tab">Labs</a></li>
   		<li><a href="#allstocks" data-toggle="tab">Department Stock</a></li>
-      <li><a href="#transfer" data-toggle="tab">Transfer Stocks</a> </li>
+      <li><a href="#message" data-toggle="tab">Messages</a> </li>
     </ul>
 	
 
@@ -23,8 +23,62 @@
   	 <div class="tab-pane fade" id="allstocks">
   		<%= render "stocks" %>
  		 </div>
-     <div class="tab-pane fade" id="transfer">
-      <%= render "transfer" %>
+     <div class="tab-pane fade" id="message">
+      <div class="span12">
+        <div class="span8">
+          <h3>Item Requests</h3>
+          <% if @request_messages.empty? %>
+            <p>No Messages</p>
+          <%else%>
+            <table class="table table-condensed">
+              <thead>
+                <th>Message</th>
+                <th>Quantity</th>
+                <th>Lab</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <% @request_messages.each do |message| %>
+                  <tr>
+                    <td><%= message.name%></td>
+                    <td><%= message.quantity%></td>
+                    <td><%= message.lab.name%></td>
+                    <td><%= link_to "Acknowledge","/message/department_ack/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
+                    <td><%= link_to "Forward","/message/request_forward/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
+                    <td><%= link_to "Deny","/message/request_deny/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <%end%>
+        </div>
+        <div class="span4">
+          <h3>Writeoff Requests</h3>
+          <% if @writeoff_messages.empty? %>
+            <p>No WriteOff Messages</p>
+          <%else%>
+            <table class="table table-condensed">
+              <thead>
+                <th>Lab</th>
+                <th></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <% @writeoff_messages.each do |message| %>
+                  <tr>
+                    <td><%= message.lab.name%></td>
+                    <td><%= link_to "Forward","/message/request_forward/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
+                    <td><%= link_to "Deny","/message/request_deny/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <%end%>
+
+        </div>
+      </div>
      </div>
 	 </div>
 </div>

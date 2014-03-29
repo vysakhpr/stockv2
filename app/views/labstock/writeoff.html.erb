@@ -1,0 +1,35 @@
+<div>
+	<table class="table table-condensed">
+		<thead>
+			<tr>
+			<th>Voucher No.</th>
+			<th>Department</th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Total Quantity</th>
+			<th>Quantity In Lab</th>
+			<th>Quantity Damaged</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% if @labstocks.empty? %>
+				<h4>No Write Off Stocks</h4>
+			<% else %>
+				<% @labstocks.each do |stock| %>
+					<tr>
+						<td> <%= stock.office.voucher_no%></td>
+						<td><%= stock.office.department.name%> </td>
+						<td><%= stock.office.name%></td>
+						<td><%= stock.office.description %></td>
+						<td><%= stock.office.quantity %></td>
+						<td><%= stock.quantity%></td>
+						<td><%= stock.quantity_used%></td>
+					</tr>
+				<% end %>
+			<% end %>
+		</tbody>
+	</table>
+
+	<%= link_to "Write Off","/message/principal_writeoff/#{@message.id}",:class=>"btn btn-danger btn-mini",method: :delete%>
+	<%= link_to "Deny","/message/principal_deny/#{@message.id}",:class=>"btn btn-danger btn-mini",method: :post%>
+</div>

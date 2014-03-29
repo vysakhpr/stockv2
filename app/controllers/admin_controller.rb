@@ -32,6 +32,9 @@ class AdminController < ApplicationController
         paginate :page=>params[:page],:per_page=>30
       end
     end
+    @writeoff_messages=Message.find(:all,:conditions=>{sender:"HOD",message_type:"writeoff"})
+    @needitems_messages=Message.find(:all,:conditions=>{sender:"HOD",message_type:"request"})
+    @offices = Office.order(sort_column + ' ' + sort_direction)
   end
 
   def office

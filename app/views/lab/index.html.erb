@@ -28,10 +28,11 @@
       <li class="active"><a href="#perfect" data-toggle="tab">Perfectly Working</a></li>
   		<li><a href="#repair" data-toggle="tab">Needs Repair</a></li>
   		<li><a href="#irrepair" data-toggle="tab">Irrepairable</a></li>
+      <li><a href="#notice" data-toggle="tab" >Messages</a></li>
     </ul>
 	
 
-	<!-- Tab Panes !-->
+	 <!-- Tab Panes !-->
  	  <div class="tab-content">
   	 <div class="tab-pane fade in active" id="perfect">
   		  <%= render "perfect" %>
@@ -42,6 +43,26 @@
   	 <div class="tab-pane fade" id="irrepair">
   		<%= render "irrepair" %>
  		 </div>
+     <div class="tab-pane fade" id="notice">
+      <% if @messages.empty? %>
+        <p>No Messages</p>
+      <%else%>
+        <table class="table table-condensed">
+          <thead>
+            <th>Message</th>
+            <th></th>
+          </thead>
+          <tbody>
+            <% @messages.each do |message| %>
+              <tr>
+                <td><%= message.name%></td>
+                <td><%= link_to "Seen it","/message/acknowledgement_delete/#{message.id}",method: :delete,:class=>"btn btn-danger btn-mini"%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <%end%>
+     </div> 
 	 </div>
   </div>
 </div>

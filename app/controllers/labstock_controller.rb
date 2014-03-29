@@ -58,6 +58,11 @@ class LabstockController < ApplicationController
     
   end
 
+  def writeoff
+    @labstocks=Labstock.find(:all,:conditions=>{:lab_id=>params[:id],:status=>"W"})
+    @message=Message.find(:first,:conditions=>{:lab_id=>params[:id],:message_type=>"writeoff"})
+  end
+
   def delete
   end
 end

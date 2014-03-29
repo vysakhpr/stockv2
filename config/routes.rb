@@ -18,6 +18,7 @@ Stockv2::Application.routes.draw do
   get "labstock/delete",to:"labstock#delete"
   post "labstock/create",to:"labstock#create"
   post "labstock/transfer",to:"labstock#transfer"
+  post "labstock/writeoff/:id",to: "labstock#writeoff"
 
   get "lab/register", to:"lab#register"
   post "lab/create", to: "lab#create"
@@ -27,6 +28,7 @@ Stockv2::Application.routes.draw do
   get "lab/login",to:"lab#login"
   post "lab/update/:id", to:"lab#update"
   post "lab/update_used/:id", to:"lab#update_used"
+
 
 
   get "department/register", to:"department#register"
@@ -40,7 +42,13 @@ Stockv2::Application.routes.draw do
 
   post "message/writeoff", to:"message#writeoff"
   post "message/need_stock", to:"message#need_stock"
-  
+  post "message/department_ack/:id",to:"message#department_ack"
+  post "message/request_forward/:id",to:"message#request_forward"
+  post "message/request_deny/:id",to: "message#request_deny"
+  post "message/principal_deny/:id",to:"message#principal_deny"
+  post "message/principal_acknowledge/:id",to: "message#principal_acknowledge"
+  delete "message/acknowledgement_delete/:id", to: "message#acknowledgement_delete"
+  delete "message/principal_writeoff/:id",to: "message#principal_writeoff"  
 
   get "home/index",to:"home#index"
 

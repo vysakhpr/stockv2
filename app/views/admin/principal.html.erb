@@ -7,3 +7,94 @@
 <%end%>
 
 <%= link_to "Add New Department", department_register_path, :class=>"btn btn-primary",:id=>"add_department", remote:true %>
+<section>
+<div class="span12">
+	<div class="span8">
+		<% if @needitems_messages.empty?%>
+			<p>No Item Requests</p>
+		<% else %>
+			<table class="table table-condensed">
+				<thead>
+					<th>Department</th>
+					<th>Lab</th>
+					<th>Name Of The Item</th>
+					<th>Quantity</th>
+					<th></th>	
+					<th></th>
+				</thead>
+				<tbody>
+					<% @needitems_messages.each do |message| %>
+						<tr>
+						<td><%=message.department.name%></td>
+						<td><%=message.lab.name%></td>
+						<td><%=message.name%></td>
+						<td><%=message.quantity%></td>
+						<td><%= link_to "Acknowledge","/message/principal_acknowledge/#{message.id}",:class=>"btn btn-primary btn-mini",method: :post%></td>
+						<td><%= link_to "Deny","message/principal_deny/#{message.id}",:class=>"btn btn-danger btn-mini",method: :post%></td>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>	
+		<%end%>
+	</div>
+	<div class="span4">
+		<% if @writeoff_messages.empty?%>
+			<p>No Write Off Requests</p>
+		<%else%>
+			<table class="table table-condensed">
+				<thead>
+					<th>Department</th>
+					<th>Lab</th>
+					<th></th>	
+				</thead>
+				<tbody>
+					<% @writeoff_messages.each do |message| %>
+						<tr>
+						<td><%=message.department.name%></td>
+						<td><%=message.lab.name%></td>
+						<td><%= link_to "Check","/labstock/writeoff/#{message.lab_id}",:class=>"btn btn-success btn-mini",method: :post %></td>
+						
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+		<% end %>
+	</div>	
+</div>
+</section>
+
+<section>
+<div style="width:100%;height:300px;overflow:auto">
+<table class="table table-striped table-condensed table-responsive office_stock" >
+	<thead>
+		STOCK
+		<tr>
+		 <th><%= sortable "date","Date" %></th>
+		 <th><%= sortable "voucher_no.","VoucherNo" %></th>
+		 <th><%= sortable "department_id","Department" %></th>
+		 <th><%= sortable "name","Name" %></th>
+		 <th><%= sortable "description","Description" %></th>
+		 <th><%= sortable "price_unit","Price Unit" %></th>
+		 <th><%= sortable "quantity","Quantity" %></th>
+		 <th><%= sortable "total_price","Total Price" %></th>
+		</tr>
+	</thead>
+	<tbody>
+		<% @offices.each do |t| %>
+			<tr>
+				<td><%=t.date%></td>
+				<td><%=t.voucher_no%></td>
+				<td><%=t.department.name%></td>
+				<td><%=t.name%></td>
+				<td><%=t.description%></td>
+				<td><%=t.price_unit%></td>
+				<td><%=t.quantity%></td>
+				<td><%=t.total_price%></td>
+				<td><%= link_to "Details","/office/show/#{t.id}", :method=> :post, :class=>"btn btn-info btn-mini" %></td>
+			</tr>
+		<%end%>  
+	</tbody>
+</table>
+</div>
+
+</section>
