@@ -84,10 +84,18 @@ class LabController < ApplicationController
   end
   
   def create
+
 		@lab=current_user.labs.build(params[:lab])
 		if @lab.save
-			flash[:success]="Added New lab Successfully"
-			redirect_to root_url
+			user=User.new(:username=>params[:lab][:username],:role=>"Lab")
+      if user.save
+       flash[:success]="Added New Lab Successfully"
+       redirect_to root_url
+      else
+        raise ActiveRecord::Rollback
+        flash[:error]=user.errors.full_messages.to_sentence
+        redirect_to :back
+      end
 		else
 			flash[:error]="Oops Something has gone wrong"
 			redirect_to :back

@@ -14,8 +14,15 @@ class AdminController < ApplicationController
 	def create
 		@admin=Admin.new(params[:admin])
 		if @admin.save
-			flash[:success]="Success"
-			redirect_to root_url
+      user=User.new(:username=>params[:admin][:username],:role=>"Admin")
+      if user.save
+			 flash[:success]="Success"
+			 redirect_to root_url
+      else
+        raise ActiveRecord::Rollback
+        flash[:error]=user.errors.full_messages.to_sentence
+        redirect_to :back
+      end
 		else
 			flash[:error]="Oops Something has gone wrong"
 			redirect_to :back

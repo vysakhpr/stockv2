@@ -58,8 +58,15 @@ class DepartmentController < ApplicationController
   def create
 		@department=Department.new(params[:department])
 		if @department.save
-			flash[:success]="Added New Department Successfully"
-			redirect_to root_url
+      user=User.new(:username=>params[:department][:username],:role=>"HOD")
+      if user.save
+       flash[:success]="Added New Department Successfully"
+       redirect_to root_url
+      else
+        raise ActiveRecord::Rollback
+        flash[:error]=user.errors.full_messages.to_sentence
+        redirect_to :back
+      end
 		else
 			flash[:error]="Oops Something has gone wrong"
 			redirect_to :back

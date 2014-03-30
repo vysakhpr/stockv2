@@ -1,5 +1,7 @@
 Stockv2::Application.routes.draw do
 
+  post "user/sign_in", to:"home#sign_in"
+
   get "admin/sign_out", to:"admin#sign_out"
   post "admin/sign_in", to:"admin#sign_in"
   post "admin/create", to:"admin#create"
