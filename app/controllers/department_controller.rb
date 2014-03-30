@@ -95,40 +95,55 @@ class DepartmentController < ApplicationController
 
   def transfer_update
     @donor_stock=Labstock.find(params[:donor_stock_id])
+    donor_id=@donor_stock.lab_id
+    donor_stock=@donor_stock.office.name
+    donor_voucher_no=@donor_stock.office.voucher_no
     @receiver_lab=Lab.find(params[:receiver][:id])
     @quantity=params[:quantity]
-    if @quantity.to_i >@donor_stock.quantity
-      flash[:error]="Quantity Overflow"
+    available_quantity=@donor_stock.quantity-@donor_stock.quantity_used
+    if @quantity.to_i>available_quantity
+      flash[:error]="Not enough quantity available "
       redirect_to "/department/transfer/#{@donor_stock.id}"
-    else
-      unless @quantity.nil? || @receiver_lab.nil?
-        @receiver_stock=@receiver_lab.labstocks.find_by_office_id(@donor_stock.office_id)
-        if @receiver_stock.nil?
-          @labstock=Labstock.new(office_id:@donor_stock.office_id,quantity:@quantity,lab_id:@receiver_lab.id)
-          if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
-            flash[:error]="Quantity over full size"
+    else  
+      if @quantity.to_i >@donor_stock.quantity
+        flash[:error]="Quantity Overflow"
+        redirect_to "/department/transfer/#{@donor_stock.id}"
+      else
+        unless @quantity.nil? || @receiver_lab.nil?
+          @receiver_stock=@receiver_lab.labstocks.find_by_office_id(@donor_stock.office_id)
+          if @receiver_stock.nil?
+            @labstock=Labstock.new(office_id:@donor_stock.office_id,quantity:@quantity,lab_id:@receiver_lab.id)
+            if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
+              flash[:error]="Quantity over full size"
+              redirect_to "/department/transfer/#{@donor_stock.id}"
+            elsif !(@labstock.save)
+              flash[:error]=@labstock.errors.full_messages.to_sentence
+              redirect_to "/department/transfer/#{@donor_stock.id}"
+            end 
+          else
+            @receiver_stock.quantity=@receiver_stock.quantity+@quantity.to_i
+            unless @receiver_stock.save
+              flash[:error]=@receiver_stock.errors.full_messages.to_sentence
+              redirect_to "/department/transfer/#{@donor_stock.id}"
+            end  
+          end
+          @donor_stock.quantity=@donor_stock.quantity-@quantity.to_i
+          if @donor_stock.quantity<1
+            @donor_stock.destroy
+          elsif !(@donor_stock.save)
+            flash[:error]=@donor_stock.errors.full_messages.to_sentence
+            raise ActiveRecord::Rollback
             redirect_to "/department/transfer/#{@donor_stock.id}"
-          elsif !(@labstock.save)
-            flash[:error]=@labstock.errors.full_messages.to_sentence
-            redirect_to "/department/transfer/#{@donor_stock.id}"
-          end 
-        else
-          @receiver_stock.quantity=@receiver_stock.quantity+@quantity.to_i
-          unless @receiver_stock.save
-            flash[:error]=@receiver_stock.errors.full_messages.to_sentence
-            redirect_to "/department/transfer/#{@donor_stock.id}"
-          end  
+          end
+          donor_message=Message.new(:department_id=>current_user.id,:lab_id=>donor_id,:message_type=>"ack",:name=>"#{@quantity} #{donor_stock},voucher number #{donor_voucher_no}, have been transferred FROM your lab by the department_head",:quantity=>0,:sender=>"Lab")
+          receiver_message=Message.new(:department_id=>current_user.id,:lab_id=>@receiver_lab.id,:message_type=>"ack",:name=>"#{donor_stock},voucher number #{donor_voucher_no}, has been transferred as per your request",:quantity=>0,:sender=>"Lab")
+          if donor_message.save and receiver_message.save     
+            flash[:notice]="Successfully Transferred"
+          else
+            flash[:error]="Successfully Transferred but acknowledgements to corresponding labs not send. Please do it manually "
+          end
+          redirect_to root_url
         end
-        @donor_stock.quantity=@donor_stock.quantity-@quantity.to_i
-        if @donor_stock.quantity<1
-          @donor_stock.destroy
-        elsif !(@donor_stock.save)
-          flash[:error]=@donor_stock.errors.full_messages.to_sentence
-          raise ActiveRecord::Rollback
-          redirect_to "/department/transfer/#{@donor_stock.id}"
-        end
-        flash[:info]="Successively Transferred"
-        redirect_to root_url
       end
     end
   end

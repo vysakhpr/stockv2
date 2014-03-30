@@ -29,7 +29,11 @@
 			<% end %>
 		</tbody>
 	</table>
-
-	<%= link_to "Write Off","/message/principal_writeoff/#{@message.id}",:class=>"btn btn-danger btn-mini",method: :delete%>
-	<%= link_to "Deny","/message/principal_deny/#{@message.id}",:class=>"btn btn-danger btn-mini",method: :post%>
+	<% if current_user_type=="HOD"%>
+		<%= link_to "Forward","/message/request_forward/#{@message.id}",:class=>"btn btn-info btn-mini",method: :post %>
+        <%= link_to "Deny","/message/request_deny/#{@message.id}",:class=>"btn btn-info btn-mini",method: :post %>
+	<% elsif current_user_type=="Admin" %>
+		<%= link_to "Write Off","/message/principal_writeoff/#{@message.id}",:class=>"btn btn-danger btn-mini",method: :delete%>
+		<%= link_to "Deny","/message/principal_deny/#{@message.id}",:class=>"btn btn-danger btn-mini",method: :post%>
+	<% end %>
 </div>

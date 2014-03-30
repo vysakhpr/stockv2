@@ -80,8 +80,7 @@
                 <% @writeoff_messages.each do |message| %>
                   <tr>
                     <td><%= message.lab.name%></td>
-                    <td><%= link_to "Forward","/message/request_forward/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
-                    <td><%= link_to "Deny","/message/request_deny/#{message.id}",:class=>"btn btn-info btn-mini",method: :post %></td>
+                    <td><%= link_to "Check","/labstock/writeoff/#{message.lab_id}",:class=>"btn btn-success btn-mini",method: :post %></td>
                   </tr>
                 <% end %>
               </tbody>

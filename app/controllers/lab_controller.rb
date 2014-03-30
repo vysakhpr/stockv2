@@ -12,10 +12,10 @@ class LabController < ApplicationController
     @labstocks_perfects=current_user.labstocks.find(:all,:conditions=>{status:"P"})
     @labstocks_repairs=current_user.labstocks.find(:all,:conditions=>{status:"R"})
     @labstocks_irrepairs=current_user.labstocks.find(:all,:conditions=>{status:"I"})
-    @lab_messages=current_user.messages
+    @lab_messages=current_user.messages.order("created_at DESC")
     @messages=[]
     @lab_messages.each do |t|
-      if t.message_type=="info" || t.message_type=="ack"
+      if t.message_type=="ack"
         @messages<<t
       end
     end

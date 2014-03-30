@@ -59,7 +59,11 @@ class MessageController < ApplicationController
     	else
     		flash[:error]="Ooops Forwarding Failed"
         end
-        redirect_to :back
+        if status=="WriteOff"
+            redirect_to root_url
+        else
+          redirect_to :back
+        end
     end
 
 
@@ -77,7 +81,11 @@ class MessageController < ApplicationController
  		else
  			flash[:error]="Ooops Denial Failed"
  	    end
- 	    redirect_to :back
+        if status=="WriteOff"
+            redirect_to root_url
+        else
+ 	      redirect_to :back
+        end
     end
 
     def acknowledgement_delete
