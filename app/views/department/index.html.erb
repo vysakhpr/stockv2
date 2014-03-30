@@ -2,6 +2,17 @@
 
  <div class="span9">
 
+
+  <div>
+    <%= form_tag "/department/index", :method => 'get' do %>
+        <%= text_field_tag :search,nil,:placeholder=>"Search Your Inventory" %>
+        <%= submit_tag " Search" %>
+    <% end %>
+    <% unless @search.nil? %>
+      <%= render "search" %>
+    <%end%> 
+  </div>
+
  <!-- Nav Tabs !-->
 		<ul class="nav nav-tabs">
       <li class="nav-header" >STATUS</li>

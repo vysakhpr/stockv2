@@ -21,6 +21,28 @@ class LabController < ApplicationController
     end
   end
 
+  def search
+    unless params[:search].blank?
+      @search=Office.search do 
+        fulltext params[:search] do
+          query_phrase_slop 1
+          minimum_match 1
+        end
+        with(:department_id,current_user.department_id)
+      end
+    end
+    @search_results=[]
+    @labstocks=current_user.labstocks.all
+    @labstocks.each do |labstock|
+      @search.results.each do |result|
+        if labstock.office_id==result.id
+          @search_results<<labstock
+        end
+      end            
+    end
+    @search_results=@search_results.paginate(:page=>params[:page],:per_page=>30)
+  end
+
   def update
     @labstock=Labstock.find(params[:id])
     if params[:status].blank?
@@ -89,5 +111,4 @@ class LabController < ApplicationController
   	flash[:notice]="You have Successfully logged out"	
   	redirect_to root_url
   end
-
 end

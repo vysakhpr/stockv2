@@ -1,0 +1,45 @@
+<%= link_to "Back to Home", root_url ,:class=>"btn btn-info btn-small" %>
+<div style="width:50%">
+<% if  @search_results.empty?%>
+	<strong>No Items Match Your Search</strong>
+<% else %>
+	<table class ="table table-condensed">
+	<thead>
+	<th>Voucher Number</th>
+    <th>Name</th>
+	<th>Description</th>
+	<th>Quantity</th>
+	<th>Quantity Used</th>
+	<th>Status</th>
+	</thead>
+	<tbody>
+		<% @search_results.each do |f|%>
+			<tr>
+				<td><%=f.office.voucher_no%></td>
+				<td><%=f.office.name%></td>
+				<td><%=f.office.description%></td>
+				<td><%=f.quantity%></td>
+				<td><%= form_tag("/lab/update_used/#{f.id}", method: :post) do%>
+						<%=text_field_tag :quantity_used,f.quantity_used,style: "width:50px" %>
+  						<%= submit_tag "Save",:class=>"btn btn-primary btn-small"%>
+  						<%end%>
+  				</td>
+				<td>
+					<%= form_tag("/lab/update/#{f.id}", method: :post) do%>
+					<%if f.status=="P"%>
+  					 	<%= select_tag :status,options_for_select([["Perfect", ""], ["Needs Repair","R"], ["Irrepairable","I"],["WriteOff","W"]]),style: "width:150px" %>
+  					<%elsif f.status=="R"%>
+  						<%= select_tag :status,options_for_select([["Repair", ""], ["Perfectly working","P"], ["Irrepairable","I"],["WriteOff","W"]]),style: "width:150px"%>
+  					<%elsif f.status="I"%>
+  						<%= select_tag :status,options_for_select([["Irrepairable", ""], ["Perfectly working","P"], ["Needs Repair","R"],["WriteOff","W"]]),style: "width:150px"%>
+  					<%end%>	
+					<%= submit_tag "Change",:confirm =>"Are You Sure?",:class=>"btn btn-primary btn-mini"%> 
+						<%end%>
+				</td>
+			</tr>
+		<%end%>
+	</tbody>
+	</table>
+	<%=will_paginate @search_results %>
+<%end%>
+</div>

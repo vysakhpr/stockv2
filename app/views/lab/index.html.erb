@@ -1,3 +1,14 @@
+<div>
+  <%= form_tag "/lab/search", :method => 'get' do %>
+      <%= text_field_tag :search,nil,:placeholder=>"Search Your Inventory" %>
+      <%= submit_tag " Search" %>
+  <% end %>
+  <% unless @search.nil? %>
+    <%= render "search" %>
+  <%end%> 
+</div>
+
+
  <div class="span12">
  <div class="span3">
           <div class="well sidebar-nav">

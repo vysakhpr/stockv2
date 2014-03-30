@@ -1,8 +1,7 @@
 class OfficeController < ApplicationController
 
 before_filter :signed_in_admin, :except=>:show
-  def new
-  	
+  def new  	
   	@office = Office.new
   	@departments=Department.all
   end
@@ -13,6 +12,7 @@ before_filter :signed_in_admin, :except=>:show
   end
 
   def create
+    params[:office][:voucher_no]=params[:office][:voucher_no]+"~#{Time.now}"
   	@office=Office.create(params[:office])
   	if @office.save
   		flash[:notice]="Saved"
@@ -23,10 +23,4 @@ before_filter :signed_in_admin, :except=>:show
     end
 
   end
-
-  def delete
-  end
-
-    
-  
 end

@@ -10,6 +10,18 @@ class DepartmentController < ApplicationController
   
 
   def index
+    unless params[:search].blank?
+      @search=Office.search do 
+        fulltext params[:search] do
+          query_phrase_slop 1
+          minimum_match 1
+        end
+        with(:department_id,current_user.id)
+        paginate :page=>params[:page],:per_page=>30
+      end
+    end
+
+
     @labs=current_user.labs
     @offices=current_user.offices.order(sort_column + ' ' + sort_direction)
     @hods=[]

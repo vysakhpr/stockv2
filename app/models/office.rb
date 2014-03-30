@@ -2,6 +2,7 @@ class Office < ActiveRecord::Base
 searchable do
   text :name
   text :description  
+  integer :department_id
 end 
   attr_accessible :date, :department_id, :description, :name, :price_unit, :quantity, :total_price, :voucher_no, :quantity_assigned
 

@@ -28,6 +28,7 @@ Stockv2::Application.routes.draw do
   get "lab/login",to:"lab#login"
   post "lab/update/:id", to:"lab#update"
   post "lab/update_used/:id", to:"lab#update_used"
+  get "lab/search",to:"lab#search"
 
 
 

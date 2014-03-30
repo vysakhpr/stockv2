@@ -3,6 +3,7 @@
 	<div style="width:100%;height:300px;overflow:auto">
 <table class="table table-striped  table-condensed">
 	<thead >
+		<th>Voucher Number</th>
 		<th>Name</th>
 		<th>Description</th>
 		<th>Quantity</th>
@@ -12,6 +13,7 @@
 	<tbody>
 		<% @labstocks_perfects.each do|f| %>
 			<tr>
+				<td><%=f.office.voucher_no%></td>
 				<td><%=f.office.name%></td>
 				<td><%=f.office.description%></td>
 				<td><%=f.quantity%></td>
