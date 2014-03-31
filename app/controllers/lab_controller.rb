@@ -21,6 +21,38 @@ class LabController < ApplicationController
     end
   end
 
+  def password
+  end
+
+  def password_change
+    lab=Lab.find(params[:id])
+    if !(current_user_type=="HOD" or current_user.id==lab.id)
+      flash[:error]="Access Denied"
+      redirect_to root_url and return
+    else 
+      if current_user_type== "HOD"
+        department=Department.find_by_username(current_user.username)
+        unless department && department.authenticate(params[:current_password])
+          flash[:error]="Authentication Error"
+          redirect_to root_url and return
+        end
+      else
+        lab=Lab.find_by_username(current_user.username)
+        unless lab && lab.authenticate(params[:current_password])
+          flash[:error]="Authentication Error" 
+          redirect_to root_url and return
+        end
+      end
+      if lab.update_attributes(:password=>params[:password],:password_confirmation=>params[:password_confirmation])
+        flash[:notice]="Password for #{lab.name} Changed" 
+        redirect_to root_url and return
+      else
+        flash[:error]=lab.errors.full_messages.to_sentence
+        redirect_to root_url and return
+      end
+    end
+  end
+
   def search
     unless params[:search].blank?
       @search=Office.search do 

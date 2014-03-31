@@ -21,7 +21,7 @@ class DepartmentController < ApplicationController
       end
     end
 
-
+    @delete_lab=Lab.new
     @labs=current_user.labs
     @offices=current_user.offices.order(sort_column + ' ' + sort_direction)
     @hods=[]
@@ -45,6 +45,38 @@ class DepartmentController < ApplicationController
           @request_messages<<t
         end
       end 
+    end
+  end
+
+  def password
+  end
+
+  def password_change
+    department=Department.find(params[:id])
+    if !(current_user_type=="Admin" or current_user.id==department.id)
+      flash[:error]="Access Denied"
+      redirect_to root_url and return
+    else 
+      if current_user_type== "Admin"
+        admin=Admin.find_by_username(current_user.username)
+        unless admin && admin.authenticate(params[:current_password])
+          flash[:error]="Authentication Error"
+          redirect_to root_url and return
+        end
+      else
+        department=Department.find_by_username(current_user.username)
+        unless department && department.authenticate(params[:current_password])
+          flash[:error]="Authentication Error" 
+          redirect_to root_url and return
+        end
+      end
+      if department.update_attributes(:password=>params[:password],:password_confirmation=>params[:password_confirmation])
+        flash[:notice]="Password for #{department.name} head Changed" 
+        redirect_to root_url and return
+      else
+        flash[:error]=department.errors.full_messages.to_sentence
+        redirect_to root_url and return
+      end
     end
   end
 
@@ -108,13 +140,12 @@ class DepartmentController < ApplicationController
     @receiver_lab=Lab.find(params[:receiver][:id])
     @quantity=params[:quantity]
     available_quantity=@donor_stock.quantity-@donor_stock.quantity_used
-    if @quantity.to_i>available_quantity
-      flash[:error]="Not enough quantity available "
-      redirect_to "/department/transfer/#{@donor_stock.id}"
-    else  
-      if @quantity.to_i >@donor_stock.quantity
+      if @quantity.to_i>available_quantity
+         flash[:error]="Not enough quantity available "
+         redirect_to "/department/transfer/#{@donor_stock.id}" and return
+      elsif @quantity.to_i >@donor_stock.quantity
         flash[:error]="Quantity Overflow"
-        redirect_to "/department/transfer/#{@donor_stock.id}"
+        redirect_to "/department/transfer/#{@donor_stock.id}" and return
       else
         unless @quantity.nil? || @receiver_lab.nil?
           @receiver_stock=@receiver_lab.labstocks.find_by_office_id(@donor_stock.office_id)
@@ -122,16 +153,16 @@ class DepartmentController < ApplicationController
             @labstock=Labstock.new(office_id:@donor_stock.office_id,quantity:@quantity,lab_id:@receiver_lab.id)
             if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
               flash[:error]="Quantity over full size"
-              redirect_to "/department/transfer/#{@donor_stock.id}"
+              redirect_to "/department/transfer/#{@donor_stock.id}" and return
             elsif !(@labstock.save)
               flash[:error]=@labstock.errors.full_messages.to_sentence
-              redirect_to "/department/transfer/#{@donor_stock.id}"
+              redirect_to "/department/transfer/#{@donor_stock.id}" and return
             end 
           else
             @receiver_stock.quantity=@receiver_stock.quantity+@quantity.to_i
             unless @receiver_stock.save
               flash[:error]=@receiver_stock.errors.full_messages.to_sentence
-              redirect_to "/department/transfer/#{@donor_stock.id}"
+              redirect_to "/department/transfer/#{@donor_stock.id}" and return
             end  
           end
           @donor_stock.quantity=@donor_stock.quantity-@quantity.to_i
@@ -140,7 +171,7 @@ class DepartmentController < ApplicationController
           elsif !(@donor_stock.save)
             flash[:error]=@donor_stock.errors.full_messages.to_sentence
             raise ActiveRecord::Rollback
-            redirect_to "/department/transfer/#{@donor_stock.id}"
+            redirect_to "/department/transfer/#{@donor_stock.id}" and return
           end
           donor_message=Message.new(:department_id=>current_user.id,:lab_id=>donor_id,:message_type=>"ack",:name=>"#{@quantity} #{donor_stock},voucher number #{donor_voucher_no}, have been transferred FROM your lab by the department_head",:quantity=>0,:sender=>"Lab")
           receiver_message=Message.new(:department_id=>current_user.id,:lab_id=>@receiver_lab.id,:message_type=>"ack",:name=>"#{donor_stock},voucher number #{donor_voucher_no}, has been transferred as per your request",:quantity=>0,:sender=>"Lab")
@@ -149,9 +180,9 @@ class DepartmentController < ApplicationController
           else
             flash[:error]="Successfully Transferred but acknowledgements to corresponding labs not send. Please do it manually "
           end
-          redirect_to root_url
+          redirect_to root_url and return
         end
       end
-    end
+    #end
   end
 end

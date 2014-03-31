@@ -25,7 +25,8 @@
                 <% end %>
                 </div>
               </li>
-              <li><%= link_to "Request Write Off",message_writeoff_path,method: :post ,:class=>"btn btn-danger" %></li>
+              <%= link_to "Request Write Off",message_writeoff_path,method: :post ,:class=>"btn btn-danger" %>
+              <%=link_to "Change Your Password","/lab/password/#{current_user.id}",:class=>"btn btn-info",method: :post%>
             </ul>
           </div>
  </div>

@@ -7,7 +7,25 @@
 		<%= render "search" %>
 	<%end%>	
 </div>
+
+ <div><%=link_to "Change Your Password","/admin/password/#{current_user.id}",:class=>"btn btn-info",method: :post%></div>
+
 <div>
+	<table class="table table-striped table-condensed">
+		<thead>
+        	<th>Name</th>
+        	<th></th>
+		</thead>
+		<tbody>
+<%@departments.each do |l| %>
+			<tr>
+			<td><%=l.name%></td>
+			<td><%=link_to "Change Password","/department/password/#{l.id}",:class=>"btn btn-info",method: :post%> </td>
+			</tr>
+<%end%>
+		</tbody>
+	</table>
+
 <%= link_to "Add New Department", department_register_path, :class=>"btn btn-primary",:id=>"add_department", remote:true %>
 </div>
 <div class="span12">

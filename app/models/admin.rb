@@ -3,7 +3,9 @@ class Admin < ActiveRecord::Base
 
   has_secure_password
 
-  validates_presence_of :username, :role
+
+  validates :password, presence:true, allow_blank:false
+  validates_presence_of :username, :role, allow_blank:false
   validates_uniqueness_of :username
   validates_inclusion_of :role, :in=> %w(Principal Office)
 end

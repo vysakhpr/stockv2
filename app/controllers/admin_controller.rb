@@ -29,6 +29,31 @@ class AdminController < ApplicationController
 		end
 	end
 
+  def password
+  end
+
+  def password_change
+    admin=Admin.find(params[:id])
+    if !(current_user_type=="Admin" and current_user.id==admin.id)
+      flash[:error]="Access Denied"
+      redirect_to root_url and return
+    else 
+      admin=Admin.find_by_username(current_user.username)
+      unless admin && admin.authenticate(params[:current_password])
+        flash[:error]="Authentication Error"
+        redirect_to root_url and return
+      end
+      if admin.update_attributes(:password=>params[:password],:password_confirmation=>params[:password_confirmation])
+        flash[:notice]="Password for #{admin.role} Changed" 
+        redirect_to root_url and return
+      else
+        flash[:error]=admin.errors.full_messages.to_sentence
+        redirect_to root_url and return
+      end
+    end
+  end
+
+
   def principal
     unless params[:search].blank?
       @search=Office.search do
@@ -39,6 +64,7 @@ class AdminController < ApplicationController
         paginate :page=>params[:page],:per_page=>30
       end
     end
+    @departments=Department.all
     @writeoff_messages=Message.find(:all,:conditions=>{sender:"HOD",message_type:"writeoff"})
     @needitems_messages=Message.find(:all,:conditions=>{sender:"HOD",message_type:"request"})
     @offices = Office.order(sort_column + ' ' + sort_direction)

@@ -26,38 +26,38 @@ class HomeController < ApplicationController
           session[:admin_id]= admin.id
           flash[:notice]="Welcome #{admin.role}"
           if admin.role=="Principal"
-            redirect_to principal_path
+            redirect_to principal_path and return
           else
-            redirect_to office_path
+            redirect_to office_path and return
           end
         else
           flash[:error]="Invalid credentials"
-          redirect_to :back
+          redirect_to :back and return
         end
       elsif user.role=="HOD"
       	department=Department.find_by_username(params[:username])
   				if department && department.authenticate(params[:password])
   					session[:department_id]= department.id
   					flash[:notice]="Welcome #{department.name} Department Head"
-  					redirect_to root_url
+  					redirect_to root_url and return
   				else
   					flash[:error]="Invalid credentials"
-  					redirect_to :back
+  					redirect_to :back and return
   				end
       elsif user.role=="Lab"
       		lab=Lab.find_by_username(params[:username])
   				if lab && lab.authenticate(params[:password])
   					session[:lab_id]= lab.id
   					flash[:notice]="Welcome #{lab.name} In Charge"
-		  			redirect_to root_url
+		  			redirect_to root_url and return
   				else
   					flash[:error]="Invalid credentials"
-		  			redirect_to :back
+		  			redirect_to :back and return
   				end
       end
     else
       flash[:error]="Invalid Credentials"
-      redirect_to root_url
+      redirect_to root_url and return
     end
   end
 end

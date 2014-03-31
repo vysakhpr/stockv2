@@ -7,6 +7,7 @@ class Lab < ActiveRecord::Base
   belongs_to :department
   has_many :messages, :dependent=>:destroy
 
-  validates_presence_of :name,:username
+  validates :password, presence:true, allow_blank:false
+  validates_presence_of :name,:username,:allow_blank=>false
   validates_uniqueness_of :username
 end

@@ -7,7 +7,8 @@ class Department < ActiveRecord::Base
 
   has_secure_password
 
-  validates_presence_of :name, :username
+  validates :password, presence:true, allow_blank:false
+  validates_presence_of :name, :username, allow_blank:false
   validates_uniqueness_of :username
 
 end

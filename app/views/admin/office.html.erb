@@ -1,5 +1,5 @@
 <h2>Office Stock</h2>
-
+ <div><%=link_to "Change Your Password","/admin/password/#{current_user.id}",:class=>"btn btn-info",method: :post%></div>
 <div ><%= link_to "Add Stock", "office/new", :class=>"btn btn-primary btn-small"%></div><br/>
 <div class="alert alert-info" style= "width:75%" >
 	<div style="width:100%;height:300px;overflow:auto">

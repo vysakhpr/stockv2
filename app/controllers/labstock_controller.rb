@@ -5,46 +5,46 @@ class LabstockController < ApplicationController
   end
 
   def create
-    @labstock_exist=Labstock.find_by_office_id(params[:labstock][:office_id])
+    @labstock_exist=Labstock.find(:first,:conditions=>{:office_id=>params[:labstock][:office_id],:lab_id=>params[:labstock][:lab_id]})
     unless @labstock_exist.nil?
       unless @labstock_exist.quantity.nil?
         if (@labstock_exist.office.quantity-@labstock_exist.office.quantity_assigned) < params[:labstock][:quantity].to_i
           flash[:error]="Quantity over full size"
-          redirect_to root_url
+          redirect_to root_url and return
         else 
           @labstock_exist.quantity=@labstock_exist.quantity+params[:labstock][:quantity].to_i
           if @labstock_exist.save
             flash[:info]="Successively Assigned"
             diff=@labstock_exist.office.quantity_assigned+params[:labstock][:quantity].to_i
             @labstock_exist.office.update_attribute(:quantity_assigned,diff)
-            redirect_to root_url
+            redirect_to root_url and return
           else
             flash[:error]=@labstock_exist.errors.full_messages.to_sentence
-            redirect_to root_url
+            redirect_to root_url and return
           end
         end           
       else
         flash[:error] = "Quantity Should have some value"
-        redirect_to root_url
+        redirect_to root_url and return
       end
     else
   	 @labstock=Labstock.new(params[:labstock])
   	 unless @labstock.quantity.nil?
   	 	  if (@labstock.office.quantity-@labstock.office.quantity_assigned) < @labstock.quantity
   			  flash[:error]="Quantity over full size"
-  			  redirect_to root_url
+  			  redirect_to root_url and return
   		  elsif @labstock.save
   			  flash[:info]="Successively Assigned"
           diff=@labstock.office.quantity_assigned+@labstock.quantity
           @labstock.office.update_attribute(:quantity_assigned,diff)
-  			  redirect_to root_url
+  			  redirect_to root_url and return
         else
           flash[:error] = @labstock.errors.full_messages.to_sentence
-          redirect_to root_url
+          redirect_to root_url and return
   		  end	
   	  else
   		  flash[:error] = "Quantity is Nil"
-  		  redirect_to root_url
+  		  redirect_to root_url and return
    	  end
     end
   end
@@ -63,6 +63,4 @@ class LabstockController < ApplicationController
     @message=Message.find(:first,:conditions=>{:lab_id=>params[:id],:message_type=>"writeoff"})
   end
 
-  def delete
-  end
 end

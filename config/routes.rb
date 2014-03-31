@@ -8,6 +8,9 @@ Stockv2::Application.routes.draw do
   get "/admin/register", to: "admin#register"
   get "/principal",to:"admin#principal"
   get "/office",to:"admin#office"
+  post "admin/password_change", to:"admin#password_change"
+  post "admin/password/:id",to:"admin#password"
+
 
   get "admin/login",to:"admin#login"
   get "office/new",to:"office#new"
@@ -31,6 +34,8 @@ Stockv2::Application.routes.draw do
   post "lab/update/:id", to:"lab#update"
   post "lab/update_used/:id", to:"lab#update_used"
   get "lab/search",to:"lab#search"
+  post "lab/password_change", to:"lab#password_change"
+  post "lab/password/:id",to:"lab#password"
 
 
 
@@ -42,6 +47,8 @@ Stockv2::Application.routes.draw do
   get "department/login",to:"department#login"
   get "department/transfer/:id", to: "department#transfer"
   post "department/transfer_update", to: "department#transfer_update"
+  post "department/password_change", to: "department#password_change"
+  post "department/password/:id",to:"department#password"
 
   post "message/writeoff", to:"message#writeoff"
   post "message/need_stock", to:"message#need_stock"
